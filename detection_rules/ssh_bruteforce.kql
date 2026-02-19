@@ -1,0 +1,15 @@
+/*
+ * Rule Name: SSH Brute Force Detection
+ * Description: Detects multiple failed SSH authentication attempts from a single source IP.
+ * Target: Linux Servers (Auth logs)
+ * Author: M'hammed El Aissi
+ * Severity: Medium
+ * MITRE ATT&CK: T1110 (Brute Force)
+ * Query Logic:
+ * Looks for authentication failures specifically on the SSH service.
+ */
+
+event.category : "authentication"
+AND event.outcome : "failure"
+AND (service.type : "system" OR process.name : "sshd")
+AND host.os.type : "linux"
